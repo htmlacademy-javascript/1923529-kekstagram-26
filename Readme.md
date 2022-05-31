@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Павел Серегин](https://up.htmlacademy.ru/javascript/26/user/1923529).
-* Наставник: `Неизвестно`.
+- Студент: [Павел Серегин](https://up.htmlacademy.ru/javascript/26/user/1923529).
+- Наставник: [Семён Якушев](https://htmlacademy.ru/profile/id1118791).
 
 ---
 
