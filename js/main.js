@@ -10,8 +10,9 @@ function getRandomInteger(min, max) {
   }
 }
 
+const maxLine = 140;
+
 function checkingMaxLenght(lenght, maxLine) {
-  const maxLine = 140;
   if (lenght.maxLine > maxLine) {
     return false;
   } else {
