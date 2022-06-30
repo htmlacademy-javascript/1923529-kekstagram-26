@@ -1,3 +1,4 @@
 import './utils.js';
 import './data.js';
-import './picture.js';
+// eslint-disable-next-line no-unused-vars
+import { pictureFragment } from './picture.js';

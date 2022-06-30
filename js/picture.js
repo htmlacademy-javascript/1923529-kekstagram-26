@@ -6,9 +6,11 @@ const picture = document
   .querySelector('#picture')
   .content.querySelector('.picture');
 
+const pictureFragment = document.createDocumentFragment();
+
 photos.forEach((_item, i) => {
   const pictureLink = picture.cloneNode(true);
-  pictures.appendChild(pictureLink);
+  pictureFragment.appendChild(pictureLink);
 
   const pictureSrc = pictureLink.querySelector('.picture__img');
   pictureSrc.src = photos[i].url;
@@ -19,3 +21,7 @@ photos.forEach((_item, i) => {
   const pictureComment = pictureLink.querySelector('.picture__comments');
   pictureComment.textContent = photos[i].id;
 });
+
+pictures.appendChild(pictureFragment);
+
+export { pictureFragment };

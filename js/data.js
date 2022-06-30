@@ -58,4 +58,4 @@ function makePhotoDescription(id) {
   };
 }
 
-export { photos, makePhotoDescription };
+export { photos };

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function checkingMaxLenght(str, MAX_LENGHT) {
   if (str.lenght > MAX_LENGHT) {
     return false;
@@ -5,8 +6,6 @@ function checkingMaxLenght(str, MAX_LENGHT) {
     return true;
   }
 }
-
-checkingMaxLenght();
 
 function getRandomInteger(min, max) {
   if (min < 0 || max < 0 || max <= min) {
