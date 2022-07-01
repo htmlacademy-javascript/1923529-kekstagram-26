@@ -57,3 +57,5 @@ function makePhotoDescription(id) {
     },
   };
 }
+
+export { photos };
