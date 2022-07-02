@@ -1,6 +1,6 @@
 import { photos } from './data.js';
 
-function createPhotos() {
+function renderPhotos() {
   const pictures = document.querySelector('.pictures');
 
   const picture = document
@@ -21,9 +21,9 @@ function createPhotos() {
 
     const pictureComment = pictureLink.querySelector('.picture__comments');
     pictureComment.textContent = photos[i].id;
-
-    pictures.appendChild(pictureFragment);
   });
+
+  pictures.appendChild(pictureFragment);
 }
 
-export { createPhotos };
+export { renderPhotos };
