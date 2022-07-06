@@ -1,50 +1,62 @@
 import { photos } from './data.js';
+import './picture.js';
 
-function openBigPicture() {
-  const bigPicture = document.querySelector('.big-picture');
-  bigPicture.classList.remove('hidden');
+const bigPicture = document.querySelector('.big-picture');
 
-  const socialCommentCount = document.querySelector('.social__comment-count');
-  socialCommentCount.classList.add('hidden');
+const picture = document.querySelectorAll('.picture');
 
-  const commentsLoader = document.querySelector('.comments-loader');
-  commentsLoader.classList.add('hidden');
+const socialCommentCount = document.querySelector('.social__comment-count');
+socialCommentCount.classList.add('hidden');
 
-  const body = document.querySelector('body');
-  body.classList.add('modal-open');
+const commentsLoader = document.querySelector('.comments-loader');
+commentsLoader.classList.add('hidden');
 
-  const bigPictureCansel = document.querySelector('#picture-cancel');
-  bigPictureCansel.addEventListener('click', () => {
-    bigPicture.classList.add('hidden');
-  });
+const bigPictureCansel = document.querySelector('#picture-cancel');
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      bigPicture.classList.add('hidden');
-    }
-  });
+for (let i = 0; i < picture.length; i++) {
+  openBigPicture(picture[i], photos[i]);
+}
 
-  photos.forEach((_item, i) => {
+function openBigPicture(pic, photo) {
+  pic.addEventListener('click', () => {
+    bigPicture.classList.remove('hidden');
+
     const bigPictureImg = document.querySelector('.big-picture__img');
-    bigPictureImg.querySelector('img').src = photos[i].url;
+    bigPictureImg.querySelector('img').src = photo.url;
 
     const likesCount = document.querySelector('.likes-count');
-    likesCount.textContent = photos[i].likes;
-
-    const commentsCount = document.querySelector('.comments-count');
-    commentsCount.textContent = photos[i].id;
+    likesCount.textContent = photo.likes;
 
     const socialComments = document.querySelector('.social__comments');
 
-    const socialPicture = socialComments.querySelector('.social__picture');
-    socialPicture.src = photos[i].comments.avatar;
-    socialPicture.alt = photos[i].comments.name;
+    const socialPicture = socialComments.querySelectorAll('.social__picture');
+    socialPicture.forEach((i) => {
+      i.src = photo.comments.avatar;
+      i.alt = photo.comments.name;
+    });
 
-    const socialText = socialComments.querySelector('.social__text');
-    socialText.textContent = photos[i].comments.message;
+    const socialText = socialComments.querySelectorAll('.social__text');
+    socialText.forEach((i) => {
+      i.textContent = photo.comments.message;
+    });
 
     const socialCaption = document.querySelector('.social__caption');
-    socialCaption.textContent = photos[i].description;
+    socialCaption.textContent = photo.description;
+
+    const body = document.querySelector('body');
+    body.classList.add('modal-open');
+
+    bigPictureCansel.addEventListener('click', () => {
+      bigPicture.classList.add('hidden');
+      body.classList.remove('modal-open');
+    });
+
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Escape') {
+        bigPicture.classList.add('hidden');
+        body.classList.remove('modal-open');
+      }
+    });
   });
 }
 
