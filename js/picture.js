@@ -1,6 +1,7 @@
 import { photos } from './data.js';
+import { openBigPicture } from './big-picture.js';
 
-function createPhotos() {
+function renderPhotos() {
   const pictures = document.querySelector('.pictures');
 
   const picture = document
@@ -22,8 +23,13 @@ function createPhotos() {
     const pictureComment = pictureLink.querySelector('.picture__comments');
     pictureComment.textContent = photos[i].id;
 
-    pictures.appendChild(pictureFragment);
+    pictureLink.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      openBigPicture(photos[i]);
+    });
   });
+
+  pictures.appendChild(pictureFragment);
 }
 
-export { createPhotos };
+export { renderPhotos };
