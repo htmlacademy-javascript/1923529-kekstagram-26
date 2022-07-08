@@ -23,8 +23,9 @@ function renderPhotos() {
     const pictureComment = pictureLink.querySelector('.picture__comments');
     pictureComment.textContent = photos[i].id;
 
-    pictureLink.addEventListener('click', () => {
-      openBigPicture(i);
+    pictureLink.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      openBigPicture(photos[i]);
     });
   });
 
