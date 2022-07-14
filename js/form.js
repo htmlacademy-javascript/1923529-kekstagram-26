@@ -3,28 +3,33 @@ import { isEscapeKey } from './utils.js';
 
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('#upload-cancel');
+const uploadFile = document.querySelector('#upload-file');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 const HASHTAG_VALID_REGEX = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
 const MAX_HASHTAG_NUMBERS = 5;
+const onFormEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    imgUploadOverlay.classList.add('hidden');
+    body.classList.remove('modal-open');
+  }
+};
 
-function openFormOverlay() {
-  imgUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-}
-
-function closedFormOverlay() {
+function closeFormOverlay() {
   uploadCancel.addEventListener('click', () => {
     imgUploadOverlay.classList.add('hidden');
     body.classList.remove('modal-open');
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      imgUploadOverlay.classList.add('hidden');
-      body.classList.remove('modal-open');
-    }
+  document.removeEventListener('keydown', onFormEscKeydown);
+}
+
+function openFormOverlay() {
+  uploadFile.addEventListener('click', () => {
+    imgUploadOverlay.classList.remove('hidden');
+    body.classList.add('modal-open');
+    document.addEventListener('keydown', onFormEscKeydown);
   });
 }
 
@@ -32,16 +37,12 @@ function onHashTagInputValid() {
   const hashTagArray = hashtagInput.value.toLowerCase().trim().split(' ');
   const uniqueHashTagArray = new Set(hashTagArray);
 
-  if (hashTagArray.length > MAX_HASHTAG_NUMBERS) {
-    hashtagInput.setCustomValidity(
-      `Хэш-тегов не должно быть больше чем ${MAX_HASHTAG_NUMBERS}`
-    );
-  } else {
-    hashtagInput.setCustomValidity('');
-  }
-
   hashTagArray.forEach((hashtag) => {
-    if (!HASHTAG_VALID_REGEX.test(hashtag)) {
+    if (hashTagArray.length > MAX_HASHTAG_NUMBERS) {
+      hashtagInput.setCustomValidity(
+        `Хэш-тегов не должно быть больше чем ${MAX_HASHTAG_NUMBERS}`
+      );
+    } else if (!HASHTAG_VALID_REGEX.test(hashtag)) {
       hashtagInput.setCustomValidity(
         `Хэш-тег должен начинается с символа # (решётка)
 
@@ -71,4 +72,4 @@ commentInput.addEventListener('keydown', (evt) => {
   }
 });
 
-export { openFormOverlay, closedFormOverlay };
+export { openFormOverlay, closeFormOverlay };
