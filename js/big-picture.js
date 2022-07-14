@@ -14,6 +14,7 @@ const onPopupEscKeydown = (evt) => {
     evt.preventDefault();
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onPopupEscKeydown);
   }
 };
 
@@ -21,9 +22,8 @@ function closeBigPicture() {
   bigPictureCansel.addEventListener('click', () => {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onPopupEscKeydown);
   });
-
-  document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
 function openBigPicture(photo) {
