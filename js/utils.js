@@ -1,3 +1,5 @@
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 // eslint-disable-next-line no-unused-vars
 function checkingMaxLenght(str, MAX_LENGHT) {
   if (str.lenght > MAX_LENGHT) {
@@ -20,4 +22,4 @@ function getRandomString(element) {
   return element[getRandomInteger(0, element.length - 1)];
 }
 
-export { getRandomInteger, getRandomString };
+export { getRandomInteger, getRandomString, isEscapeKey };

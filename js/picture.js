@@ -3,11 +3,9 @@ import { openBigPicture } from './big-picture.js';
 
 function renderPhotos() {
   const pictures = document.querySelector('.pictures');
-
   const picture = document
     .querySelector('#picture')
     .content.querySelector('.picture');
-
   const pictureFragment = document.createDocumentFragment();
 
   photos.forEach((_item, i) => {
