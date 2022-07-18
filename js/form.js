@@ -35,7 +35,7 @@ function setFormChangeHandler() {
   });
 }
 
-function onHashTagInputValid() {
+function onHashTagInput() {
   const hashTagArray = hashtagInput.value.toLowerCase().trim().split(' ');
   const uniqueHashTagArray = new Set(hashTagArray);
 
@@ -58,7 +58,7 @@ function onHashTagInputValid() {
   }
 
   for (let i = 0; i < hashTagArray.length; ++i) {
-    if (!HASHTAG_VALID_REGEX.test(i)) {
+    if (!HASHTAG_VALID_REGEX.test(hashTagArray[i])) {
       hashtagInput.setCustomValidity(
         `Хэш-тег должен начинается с символа # (решётка)
 
@@ -71,7 +71,7 @@ function onHashTagInputValid() {
   hashtagInput.reportValidity();
 }
 
-hashtagInput.addEventListener('input', onHashTagInputValid);
+hashtagInput.addEventListener('input', onHashTagInput);
 
 hashtagInput.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
