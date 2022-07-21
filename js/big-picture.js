@@ -1,5 +1,5 @@
 import { isEscapeKey } from './utils.js';
-import { photos } from './data.js';
+import { comments } from './data.js';
 
 const body = document.querySelector('body');
 const onPopupEscKeydown = (evt) => {
@@ -16,48 +16,51 @@ function openBigPicture(photo) {
   const bigPicture = document
     .querySelector('#big-picture')
     .content.querySelector('.big-picture');
-  const bigPictureFragment = document.createDocumentFragment();
 
+  const bigPictureFragment = document.createDocumentFragment();
   const bigPictureClone = bigPicture.cloneNode(true);
   bigPictureFragment.appendChild(bigPictureClone);
-  main.appendChild(bigPictureFragment);
   body.classList.add('modal-open');
 
-  const bigPictureImg = document.querySelector('.big-picture__img');
+  const bigPictureImg = bigPictureClone.querySelector('.big-picture__img');
   bigPictureImg.querySelector('img').src = photo.url;
 
-  const likesCount = document.querySelector('.likes-count');
+  const likesCount = bigPictureClone.querySelector('.likes-count');
   likesCount.textContent = photo.likes;
 
-  const socialCaption = document.querySelector('.social__caption');
+  const socialCaption = bigPictureClone.querySelector('.social__caption');
   socialCaption.textContent = photo.description;
 
-  const socialComments = document.querySelector('.social__comments');
+  const socialComments = bigPictureClone.querySelector('.social__comments');
   const socialComment = document
     .querySelector('#comment-item')
     .content.querySelector('.social__comment');
   const commentFragment = document.createDocumentFragment();
 
-  photos.forEach((_item, i) => {
+  comments.forEach((_item, i) => {
     const commentClone = socialComment.cloneNode(true);
     commentFragment.appendChild(commentClone);
 
     const socialPicture = commentClone.querySelector('.social__picture');
-    socialPicture.src = photos[i].comments.avatar;
-    socialPicture.alt = photos[i].comments.name;
+    socialPicture.src = comments[i].avatar;
+    socialPicture.alt = comments[i].name;
 
     const socialText = commentClone.querySelector('.social__text');
-    socialText.textContent = photos[i].comments.message;
+    socialText.textContent = comments[i].message;
   });
 
   socialComments.appendChild(commentFragment);
 
-  const commentsCount = document.querySelector('.comments-count');
-  const commentItem = document.querySelectorAll('.social__comment');
-  const commentsLoader = document.querySelector('.social__comments-loader');
+  const commentsCount = bigPictureClone.querySelector('.comments-count');
+  const commentItem = bigPictureClone.querySelectorAll('.social__comment');
+  const commentsLoader = bigPictureClone.querySelector(
+    '.social__comments-loader'
+  );
   commentsCount.textContent = commentItem.length;
 
-  const socialCommentCount = document.querySelector('.social__comment-count');
+  const socialCommentCount = bigPictureClone.querySelector(
+    '.social__comment-count'
+  );
 
   for (let i = 5; i < commentItem.length; i++) {
     commentItem[i].style.display = 'none';
@@ -77,7 +80,7 @@ function openBigPicture(photo) {
     }
   });
 
-  const bigPictureCansel = document.querySelector('#picture-cancel');
+  const bigPictureCansel = bigPictureClone.querySelector('#picture-cancel');
   bigPictureCansel.addEventListener('click', () => {
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
@@ -85,6 +88,8 @@ function openBigPicture(photo) {
   });
 
   document.addEventListener('keydown', onPopupEscKeydown);
+
+  main.appendChild(bigPictureFragment);
 }
 
 export { openBigPicture, body };
