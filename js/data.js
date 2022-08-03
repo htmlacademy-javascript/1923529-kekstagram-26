@@ -38,11 +38,6 @@ const messages = [
 
 const names = ['Федя', 'Яна', 'Николай', 'Ксения', 'Иван', 'Слава'];
 
-const comments = [];
-for (let i = 1; i <= 15; i++) {
-  comments.push(makeComments(i));
-}
-
 const photos = [];
 for (let i = 1; i <= 25; i++) {
   photos.push(makePhotoDescription(i));
@@ -63,7 +58,10 @@ function makePhotoDescription(id) {
     url: `photos/${id}.jpg`,
     description: getRandomString(descriptions),
     likes: getRandomInteger(15, 200),
+    comments: Array.from({ length: getRandomInteger(5, 25) }, (v, k) =>
+      makeComments(k + 1)
+    ),
   };
 }
 
-export { photos, comments };
+export { photos };
