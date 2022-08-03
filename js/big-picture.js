@@ -37,16 +37,16 @@ function openBigPicture(photo) {
   const commentFragment = document.createDocumentFragment();
   const comments = photo.comments;
 
-  comments.slice(0, 5).forEach((_item, i) => {
+  comments.slice(0, 5).forEach((_item) => {
     const commentClone = socialComment.cloneNode(true);
     commentFragment.appendChild(commentClone);
 
     const socialPicture = commentClone.querySelector('.social__picture');
-    socialPicture.src = photo.comments[i].avatar;
-    socialPicture.alt = photo.comments[i].name;
+    socialPicture.src = _item.avatar;
+    socialPicture.alt = _item.name;
 
     const socialText = commentClone.querySelector('.social__text');
-    socialText.textContent = photo.comments[i].message;
+    socialText.textContent = _item.message;
   });
   socialComments.appendChild(commentFragment);
 
@@ -62,16 +62,16 @@ function openBigPicture(photo) {
   let countComment = 5;
 
   commentsLoader.addEventListener('click', () => {
-    comments.slice(countComment, countComment + 5).forEach((_item, i) => {
+    comments.slice(countComment, countComment + 5).forEach((_item) => {
       const commentClone = socialComment.cloneNode(true);
       socialComments.appendChild(commentClone);
 
       const socialPicture = commentClone.querySelector('.social__picture');
-      socialPicture.src = photo.comments[i].avatar;
-      socialPicture.alt = photo.comments[i].name;
+      socialPicture.src = _item.avatar;
+      socialPicture.alt = _item.name;
 
       const socialText = commentClone.querySelector('.social__text');
-      socialText.textContent = photo.comments[i].message;
+      socialText.textContent = _item.message;
     });
 
     countComment += 5;
